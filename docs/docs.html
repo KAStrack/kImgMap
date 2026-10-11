@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>kImgMap — Documentation</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="kImgMap.min.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     Navigation
+════════════════════════════════════════════════════════════════════════════ -->
+<nav class="site-nav">
+  <a href="index.html" class="nav-brand">
+    <span class="brand-k">k</span>
+    kImgMap
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Examples</a>
+    <a href="docs.html" class="active">Documentation</a>
+    <a href="https://github.com/KAStrack/kImgMap">GitHub</a>
+  </div>
+  <div class="nav-actions">
+    <div class="theme-switcher" role="group" aria-label="Color theme">
+      <button type="button" class="theme-btn" data-theme="light" title="Light" aria-label="Light theme">☀️</button>
+      <button type="button" class="theme-btn active" data-theme="auto"  title="Auto" aria-label="Automatic theme">🌗</button>
+      <button type="button" class="theme-btn" data-theme="dark"  title="Dark" aria-label="Dark theme">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     Main
+════════════════════════════════════════════════════════════════════════════ -->
+<main class="site-main">
+  <div class="docs-grid">
+
+    <!-- ── Sidebar nav ─────────────────────────────────────────────────── -->
+    <aside class="docs-nav" aria-label="Documentation navigation">
+      <details class="docs-nav-details" open>
+      <summary>Contents</summary>
+      <div class="docs-nav-group">
+        <p class="docs-nav-group-title">Getting Started</p>
+        <a href="#install"       class="docs-nav-link">Installation</a>
+        <a href="#quick-start"   class="docs-nav-link">Quick Start</a>
+        <a href="#auto-init"     class="docs-nav-link">Auto-init</a>
+      </div>
+      <div class="docs-nav-group">
+        <p class="docs-nav-group-title">Configuration</p>
+        <a href="#options"       class="docs-nav-link">Options</a>
+        <a href="#modes"         class="docs-nav-link">Modes</a>
+        <a href="#shapes"        class="docs-nav-link">Shapes</a>
+        <a href="#attributes"    class="docs-nav-link">Attributes</a>
+        <a href="#output"        class="docs-nav-link">Output</a>
+        <a href="#callbacks"     class="docs-nav-link">Callbacks</a>
+      </div>
+      <div class="docs-nav-group">
+        <p class="docs-nav-group-title">API</p>
+        <a href="#instance-api"  class="docs-nav-link">Instance API</a>
+        <a href="#static-api"    class="docs-nav-link">Static API</a>
+        <a href="#publishing"    class="docs-nav-link">Publishing</a>
+      </div>
+      <div class="docs-nav-group">
+        <p class="docs-nav-group-title">Theming</p>
+        <a href="#css-vars"      class="docs-nav-link">CSS Variables</a>
+        <a href="#dark-theme"    class="docs-nav-link">Dark Theme</a>
+        <a href="#theme-example" class="docs-nav-link">Full Example</a>
+      </div>
+      <div class="docs-nav-group">
+        <p class="docs-nav-group-title">More</p>
+        <a href="#touch"         class="docs-nav-link">Touch &amp; Pen</a>
+        <a href="#keyboard"      class="docs-nav-link">Keyboard</a>
+        <a href="#data-format"   class="docs-nav-link">Data Format</a>
+        <a href="#changelog"     class="docs-nav-link">Changelog</a>
+      </div>
+      </details>
+    </aside>
+
+    <!-- ── Documentation content ───────────────────────────────────────── -->
+    <article class="docs-content">
+      <h1>Documentation</h1>
+
+      <h2 id="install">Installation</h2>
+
+      <p>Include the CSS and JS on your page. Both files are standalone — no
+         build step or dependencies required. Download them from the
+         <a href="https://github.com/KAStrack/kImgMap">GitHub repository</a>
+         (<code>kImgMap.js</code> / <code>kImgMap.css</code> in the root, minified
+         builds in <code>docs/</code>):</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">html</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre><span class="tok-tag">&lt;link</span> rel="stylesheet" href="kImgMap.css"<span class="tok-tag">&gt;</span>
+<span class="tok-tag">&lt;script</span> src="kImgMap.js"<span class="tok-tag">&gt;&lt;/script&gt;</span></pre>
+      </div>
+
+      <p>Or load the minified builds from the jsDelivr CDN (pin a release tag such as
+         <code>@v1.15.0</code> for production):</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">html</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre><span class="tok-tag">&lt;link</span> rel="stylesheet" href="https://cdn.jsdelivr.net/gh/KAStrack/kImgMap/docs/kImgMap.min.css"<span class="tok-tag">&gt;</span>
+<span class="tok-tag">&lt;script</span> src="https://cdn.jsdelivr.net/gh/KAStrack/kImgMap/docs/kImgMap.min.js"<span class="tok-tag">&gt;&lt;/script&gt;</span></pre>
+      </div>
+
+      <p>Or use it as a module. <code>docs/kImgMap.mjs</code> (and <code>docs/kImgMap.min.mjs</code>) is an
+         ES module build with a default and a named export; <code>kImgMap.js</code> is UMD, for
+         <code>&lt;script&gt;</code> tags, CommonJS and AMD. Installed as a package (e.g.
+         <code>npm install github:KAStrack/kImgMap</code>), <code>import</code> picks the ES module and
+         <code>require</code> the UMD build automatically:</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">js</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre><span class="tok-cmt">// Bundlers (Vite, webpack, Rollup, esbuild) and Node</span>
+<span class="tok-kw">import</span> kImgMap <span class="tok-kw">from</span> <span class="tok-str">'kimgmap'</span>;
+<span class="tok-kw">import</span> <span class="tok-str">'kimgmap/kImgMap.css'</span>;
+
+<span class="tok-cmt">// Native browser modules — a local copy or the CDN</span>
+<span class="tok-kw">import</span> kImgMap <span class="tok-kw">from</span> <span class="tok-str">'https://cdn.jsdelivr.net/gh/KAStrack/kImgMap@v1.15.0/docs/kImgMap.min.mjs'</span>;
+
+<span class="tok-cmt">// CommonJS</span>
+<span class="tok-kw">const</span> kImgMap = <span class="tok-kw">require</span>(<span class="tok-str">'kimgmap'</span>);</pre>
+      </div>
+
+      <div class="callout callout-note">
+        <strong>AMD:</strong> if the page has an AMD loader such as RequireJS, the UMD build
+        registers itself as an anonymous AMD module instead of setting <code>window.kImgMap</code> —
+        load it through the loader (<code>require(['kImgMap'], …)</code>), or use the ES module build.
+      </div>
+
+      <p>Load it one way per page: an app that both <code>import</code>s and <code>require</code>s it gets
+         two separate copies, which don't know about each other's editors (one-editor-per-image and the
+         modal's page locking are per copy).</p>
+
+      <h3 id="browser-support">Browser support</h3>
+      <p>Current Chrome, Edge, Firefox and Safari (desktop and mobile) — the test suite runs
+         in Chromium, Firefox and WebKit. The code uses ES2020 and Pointer Events, so the
+         practical minimum is Chrome/Edge 90, Firefox 90 and Safari 14.1 (iOS 14.5). Browsers without the
+         <code>inert</code> attribute (before Chrome 102, Firefox 112, Safari 15.5) still trap
+         <kbd>Tab</kbd> inside the modal, but a screen reader's virtual cursor can reach the page
+         behind it.</p>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="quick-start">Quick Start</h2>
+
+      <p>Point <code>new kImgMap()</code> at an <code>&lt;img&gt;</code> element and
+         pass the associated textarea via the <code>textarea</code> option.
+         The textarea can be anywhere in the document — it does not need to share
+         a container with the image.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">html</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre><span class="tok-tag">&lt;img</span> id="my-image" src="photo.jpg" alt="Map image"<span class="tok-tag">&gt;</span>
+<span class="tok-tag">&lt;textarea</span> id="my-map"<span class="tok-tag">&gt;&lt;/textarea&gt;</span></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">js</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre><span class="tok-kw">const</span> editor = <span class="tok-kw">new</span> kImgMap(
+  document.getElementById(<span class="tok-str">'my-image'</span>),
+  {
+    textarea: document.getElementById(<span class="tok-str">'my-map'</span>),
+    mode:     <span class="tok-str">'modal'</span>,
+  }
+);</pre>
+      </div>
+
+      <p>kImgMap will hide the textarea and render an "Edit Image Map" button
+         in its place. Clicking the button opens the modal editor.</p>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="auto-init">Auto-init</h2>
+
+      <p>Add <code>data-kimgmap</code> to a container element and call
+         <code>kImgMap.init()</code> — it will find the <code>&lt;img&gt;</code>
+         and optional <code>&lt;textarea&gt;</code> inside automatically.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">html</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre><span class="tok-tag">&lt;div</span> data-kimgmap
+     data-kimgmap-mode="modal"
+     data-kimgmap-shape="rect"
+     data-kimgmap-output="areas"<span class="tok-tag">&gt;</span>
+  <span class="tok-tag">&lt;img</span> src="photo.jpg" alt=""<span class="tok-tag">&gt;</span>
+  <span class="tok-tag">&lt;textarea&gt;&lt;/textarea&gt;</span>
+<span class="tok-tag">&lt;/div&gt;</span>
+
+<span class="tok-tag">&lt;script&gt;</span>
+  kImgMap.init(); <span class="tok-cmt">// initialises all [data-kimgmap] containers</span>
+<span class="tok-tag">&lt;/script&gt;</span></pre>
+      </div>
+
+      <div class="table-wrap" style="margin-top:12px;"><table class="option-table">
+        <thead><tr><th>Data attribute</th><th>Equivalent option</th></tr></thead>
+        <tbody>
+          <tr><td>data-kimgmap-mode</td><td>mode</td></tr>
+          <tr><td>data-kimgmap-shape</td><td>defaultShape</td></tr>
+          <tr><td>data-kimgmap-output</td><td>output</td></tr>
+        </tbody>
+      </table></div>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="options">Options</h2>
+
+      <p>Pass an options object as the second argument to <code>new kImgMap()</code>
+         or <code>kImgMap.init()</code>.</p>
+
+      <div class="table-wrap"><table class="option-table">
+        <thead>
+          <tr>
+            <th>Option</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>mode</td>
+            <td>'modal'</td>
+            <td>Editor display mode. <code>'modal'</code> opens in a full-screen overlay; <code>'inline'</code> embeds the editor in the page.</td>
+          </tr>
+          <tr>
+            <td>shapes</td>
+            <td>['rect','circle','poly']</td>
+            <td>Enabled drawing tools. Pass a subset to restrict which shapes are available.</td>
+          </tr>
+          <tr>
+            <td>defaultShape</td>
+            <td>'rect'</td>
+            <td>The drawing tool that is active when the editor first opens.</td>
+          </tr>
+          <tr>
+            <td>output</td>
+            <td>'areas'</td>
+            <td><code>'areas'</code> outputs bare <code>&lt;area&gt;</code> tags. <code>'map'</code> wraps them in a <code>&lt;map name="…"&gt;</code> element.</td>
+          </tr>
+          <tr>
+            <td>mapName</td>
+            <td>''</td>
+            <td>Name attribute for the <code>&lt;map&gt;</code> element when <code>output: 'map'</code>. Defaults to <code>'imagemap'</code> if empty.</td>
+          </tr>
+          <tr>
+            <td>attributes</td>
+            <td>['href','alt','title','target']</td>
+            <td>Standard <code>&lt;area&gt;</code> attributes shown in the Properties panel. Each entry is either a plain attribute name string, or an object <code>{ attr, label }</code> to show a custom display name. E.g. <code>[{ attr: 'title', label: 'Tooltip' }, 'target']</code>.</td>
+          </tr>
+          <tr>
+            <td>customAttributes</td>
+            <td>[]</td>
+            <td>Additional attributes to expose in the Properties panel. Each entry is either a plain string or <code>{ attr, label }</code>. E.g. <code>[{ attr: 'data-value', label: 'Value' }, 'data-category']</code>. Non-empty values are written to the output HTML (subject to <code>outputAttributes</code>, if set).</td>
+          </tr>
+          <tr>
+            <td>onAttributeChange</td>
+            <td>null</td>
+            <td>
+              Called whenever an attribute field changes in the Properties panel. Receives <code>(area, attr, value)</code>. Return a plain object of attribute key/value pairs to apply as additional changes — useful for mirroring one attribute into others.<br><br>
+              <strong>Example</strong> — mirror <code>data-value</code> into <code>title</code> and <code>alt</code>:
+              <pre style="margin:6px 0 0;font-size:11px;">onAttributeChange(area, attr, value) {
+  if (attr === 'data-value')
+    return { title: value, alt: value };
+}</pre>
+              Returned values are immediately applied to the area and reflected live in any visible Properties panel inputs.
+            </td>
+          </tr>
+          <tr>
+            <td>outputAttributes</td>
+            <td>null</td>
+            <td>Controls which attributes are written to the <code>&lt;area&gt;</code> HTML output, and in what order. When <code>null</code> (default), every attribute stored on the area is written — standard, custom, and any parsed from existing HTML. Attributes that were present but empty (like <code>alt=""</code>) are kept; clearing a field in the Properties panel removes its attribute. When set explicitly, <strong>only</strong> the listed attributes are written, and <strong>all of them are always written</strong> — even if empty (e.g. <code>alt=""</code>) — because the caller has deliberately listed them.</td>
+          </tr>
+          <tr>
+            <td>confirmDiscard</td>
+            <td>true</td>
+            <td>When closing the modal with unsaved changes via <kbd>Escape</kbd>, the &times; button or a backdrop click, ask &ldquo;Discard your unsaved changes?&rdquo; first. The Cancel button always discards without asking. Labels customisable via <code>labels.discardPrompt</code>, <code>labels.keepEditing</code> and <code>labels.discardChanges</code>.</td>
+          </tr>
+          <tr>
+            <td>mandatoryTitles</td>
+            <td>false</td>
+            <td>When <code>true</code>, the Save button will refuse to close if any area is missing a title. Areas without a title are highlighted with a pulsing red error cue and an error banner is shown above the canvas. The cue clears automatically as each title is filled in. The title can come from a <code>title</code> field or be mirrored from another attribute via <code>onAttributeChange</code>. Applies to modal mode (inline mode has no Save step). Label customisable via <code>labels.errorMissingTitles</code>.</td>
+          </tr>
+          <tr>
+            <td>showTextarea</td>
+            <td>false</td>
+            <td>
+              Controls textarea visibility alongside the trigger button (modal mode only).<br>
+              <code>false</code> — textarea is hidden entirely (default).<br>
+              <code>true</code> — textarea is always visible below the trigger button.<br>
+              <code>'optional'</code> — textarea is hidden initially; a <strong>Show Code</strong> toggle button appears to the right of the trigger button to show or hide it.
+            </td>
+          </tr>
+          <tr>
+            <td>showAttributePanel</td>
+            <td>true</td>
+            <td>Whether to show the Properties panel in the sidebar when an area is selected.</td>
+          </tr>
+          <tr>
+            <td>editable</td>
+            <td>true</td>
+            <td>When <code>false</code>, areas cannot be moved or resized after drawing (draw-only mode).</td>
+          </tr>
+          <tr>
+            <td>theme</td>
+            <td>null</td>
+            <td>Colour theme of the inline editor or the modal: <code>'light'</code>, <code>'dark'</code>, or <code>'auto'</code> (follows the operating system's setting, live). <code>null</code> leaves it to your CSS. See <a href="#dark-theme">Dark Theme</a>.</td>
+          </tr>
+          <tr>
+            <td>className</td>
+            <td>''</td>
+            <td>Extra class name(s) for the editor (inline) or the modal overlay — e.g. to scope a custom theme to one instance, modal included. See <a href="#theme-example">Full Custom Theme Example</a>.</td>
+          </tr>
+          <tr>
+            <td>textarea</td>
+            <td>auto-detect</td>
+            <td>The textarea to read from and write to. Accepts a CSS selector string or a DOM element. The textarea can be anywhere in the document. If omitted, kImgMap looks for a sibling <code>&lt;textarea&gt;</code> in the same parent element as the image.</td>
+          </tr>
+          <tr>
+            <td>labels</td>
+            <td><em>see below</em></td>
+            <td>Object of UI string overrides. Useful for localisation.</td>
+          </tr>
+          <tr>
+            <td>onUpdate</td>
+            <td>null</td>
+            <td>Callback fired on every change: <code>(htmlString, areasArray) => {}</code>. Callbacks receive copies of the areas — changing them doesn't change the editor (use <code>setAreas()</code>).</td>
+          </tr>
+          <tr>
+            <td>onSave</td>
+            <td>null</td>
+            <td>Callback fired when the modal Save button is clicked: <code>(htmlString, areasArray) => {}</code>.</td>
+          </tr>
+          <tr>
+            <td>onOpen</td>
+            <td>null</td>
+            <td>Callback fired when the modal opens.</td>
+          </tr>
+          <tr>
+            <td>onClose</td>
+            <td>null</td>
+            <td>Callback fired when the modal closes: <code>(wasSaved) => {}</code>.</td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <h3>Label overrides</h3>
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">js</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre><span class="tok-kw">new</span> kImgMap(img, {
+  labels: {
+    openEditor: <span class="tok-str">'Open Editor'</span>,
+    save:       <span class="tok-str">'Apply'</span>,
+    cancel:     <span class="tok-str">'Discard'</span>,
+    deleteArea: <span class="tok-str">'Remove'</span>,
+    noAreas:    <span class="tok-str">'Start drawing to add areas.'</span>,
+    modalTitle: <span class="tok-str">'Image Map Editor'</span>,
+    select:     <span class="tok-str">'Select'</span>,
+    rect:       <span class="tok-str">'Rectangle'</span>,
+    circle:     <span class="tok-str">'Circle'</span>,
+    poly:       <span class="tok-str">'Polygon'</span>,
+    delete:     <span class="tok-str">'Delete'</span>,
+    clear:      <span class="tok-str">'Clear All'</span>,
+    showCode:   <span class="tok-str">'Show Code'</span>,
+    hideCode:   <span class="tok-str">'Hide Code'</span>,
+    errorMissingTitles: <span class="tok-str">'All areas must have a title before saving.'</span>,
+    duplicate:  <span class="tok-str">'Duplicate'</span>,
+    undo:       <span class="tok-str">'Undo'</span>,
+    redo:       <span class="tok-str">'Redo'</span>,
+    areas:      <span class="tok-str">'Areas'</span>,
+    properties: <span class="tok-str">'Properties'</span>,
+    shape:      <span class="tok-str">'Shape'</span>,
+    coords:     <span class="tok-str">'Coords'</span>,
+    close:      <span class="tok-str">'Close'</span>,         <span class="tok-cmt">// aria-label of the × button</span>
+    missingTitle: <span class="tok-str">'Missing title'</span>,
+    confirmClear: <span class="tok-str">'Clear all areas?'</span>,   <span class="tok-cmt">// asked in the editor; the button is labels.clearAll</span>
+    clearAll:     <span class="tok-str">'Clear All'</span>,
+    discardPrompt:  <span class="tok-str">'Discard your unsaved changes?'</span>,
+    keepEditing:    <span class="tok-str">'Keep editing'</span>,
+    discardChanges: <span class="tok-str">'Discard'</span>,
+    <span class="tok-cmt">// accessibility: names, hints and announcements ({shape} / {name} are filled in)</span>
+    toolbar:       <span class="tok-str">'Tools'</span>,
+    canvas:        <span class="tok-str">'Image'</span>,
+    canvasHint:    <span class="tok-str">'Arrow keys move the selected area (Shift: 10px). Alt+arrow keys resize it. Enter adds an area with the active tool. Ctrl/Cmd+Z undoes, Ctrl/Cmd+Shift+Z redoes.'</span>,
+    drawHint:      <span class="tok-str">'{shape}: drag on the image, or press Enter on it, to add one.'</span>,
+    polyHint:      <span class="tok-str">'Polygon: click to add points. Click the first or last point, double-click, or press Enter to finish. Escape cancels. (Enter on the image with no points adds a triangle.)'</span>,
+    polyStarted:   <span class="tok-str">'Polygon started.'</span>,
+    polyCancelled: <span class="tok-str">'Polygon cancelled.'</span>,
+    added:         <span class="tok-str">'{shape} added.'</span>,
+    coordsRect:    <span class="tok-str">'Format: x1, y1, x2, y2'</span>,
+    coordsCircle:  <span class="tok-str">'Format: x, y, radius'</span>,
+    coordsPoly:    <span class="tok-str">'Format: x1, y1, x2, y2, … (at least 3 points)'</span>,
+    invalidCoords: <span class="tok-str">'Invalid coordinates. {format}'</span>,
+    deleted:       <span class="tok-str">'{name} deleted.'</span>,
+    duplicated:    <span class="tok-str">'{name} duplicated.'</span>,
+    cleared:       <span class="tok-str">'All areas cleared.'</span>,
+    undone:        <span class="tok-str">'Undone.'</span>,
+    redone:        <span class="tok-str">'Redone.'</span>,
+    <span class="tok-cmt">// the how-to line under the toolbar, per tool</span>
+    tipSelect:     <span class="tok-str">'Click an area to select it, drag to move it, or drag a handle to resize it.'</span>,
+    tipRect:       <span class="tok-str">'Drag to draw a rectangle.'</span>,
+    tipCircle:     <span class="tok-str">'Drag out from the centre to draw a circle.'</span>,
+    tipShift:      <span class="tok-str">'Hold Shift to start on top of another area.'</span>,  <span class="tok-cmt">// added to tipRect/tipCircle, except on touch</span>
+    tipPoly:       <span class="tok-str">'Click to add points. Click the first point, double-click or press Enter to finish · Esc cancels · Ctrl/Cmd+Z removes the last point.'</span>,
+  }
+});</pre>
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="modes">Modes</h2>
+
+      <h3>Modal (<code>mode: 'modal'</code>)</h3>
+      <p>The default. kImgMap hides the textarea and inserts an "Edit Image Map"
+         button next to it. Clicking the button opens a full-screen modal with the
+         editor. Changes sync to the textarea live while you edit; on Save the
+         <code>onSave</code> callback fires. Cancel restores the textarea and areas to
+         their state when the modal opened; <kbd>Escape</kbd>, &times; and a backdrop
+         click do the same, but ask first if there are unsaved changes
+         (see <code>confirmDiscard</code>).</p>
+
+      <p>Round trips are lossless: attributes are written back exactly as parsed
+         (including empty ones like <code>alt=""</code>), <code>&lt;area&gt;</code> tags
+         that can't be edited visually (<code>shape="default"</code>, too few coords)
+         are kept verbatim and appended, and the textarea's <code>&lt;map name&gt;</code>
+         is reused when <code>mapName</code> isn't set.</p>
+
+      <h3>Inline (<code>mode: 'inline'</code>)</h3>
+      <p>The editor is embedded directly on the page. The original image is moved
+         into the editor container. Changes are written to the textarea — and
+         <code>onUpdate</code> fires — on every action, without any Save button.
+         Call <code>editor.destroy()</code> to remove the editor and restore the
+         original image.</p>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="shapes">Shapes</h2>
+
+      <h3>Rectangle (<code>'rect'</code>)</h3>
+      <p>Click and drag to draw. Eight resize handles appear on corners and
+         edge midpoints. Coordinates are stored as <code>x1,y1,x2,y2</code>.</p>
+
+      <h3>Circle (<code>'circle'</code>)</h3>
+      <p>Click to set the center, drag to set the radius. One resize handle
+         appears on the east edge. Coordinates: <code>cx,cy,r</code>.</p>
+
+      <h3>Polygon (<code>'poly'</code>)</h3>
+      <p>Click to add vertices one at a time. Close the shape by either:</p>
+      <ul>
+        <li>Double-clicking (or double-tapping) to place the final vertex</li>
+        <li>Clicking or tapping the last vertex again</li>
+        <li>Clicking or tapping on (or very near) the first vertex</li>
+      </ul>
+      <p>Press <kbd>Escape</kbd> to cancel an in-progress polygon.
+         Coordinates: flat <code>x1,y1,x2,y2,…</code> pairs.</p>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="attributes">Attributes</h2>
+
+      <p>Use <code>attributes</code> to control which standard <code>&lt;area&gt;</code>
+         fields appear in the Properties panel, and <code>customAttributes</code>
+         to add any non-standard attributes:</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">js</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre><span class="tok-kw">new</span> kImgMap(img, {
+  <span class="tok-cmt">// show only href and alt</span>
+  attributes: [<span class="tok-str">'href'</span>, <span class="tok-str">'alt'</span>],
+
+  <span class="tok-cmt">// also expose custom data attributes</span>
+  customAttributes: [<span class="tok-str">'data-value'</span>, <span class="tok-str">'data-category'</span>, <span class="tok-str">'data-popup'</span>],
+});</pre>
+      </div>
+
+      <p>Custom attributes are written to the output HTML verbatim. They are also
+         parsed back in when the textarea contains existing <code>&lt;area&gt;</code>
+         tags.</p>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="output">Output</h2>
+
+      <p>kImgMap writes output to the associated textarea on every change and
+         when the modal is saved. Two formats are available:</p>
+
+      <h3>Areas only (<code>output: 'areas'</code>)</h3>
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">html</span></div>
+        <pre><span class="tok-tag">&lt;area</span> shape="rect" coords="60,50,280,200" href="/page" alt="Region"<span class="tok-tag">&gt;</span>
+<span class="tok-tag">&lt;area</span> shape="circle" coords="480,200,80" href="/hub" alt="Hub"<span class="tok-tag">&gt;</span></pre>
+      </div>
+
+      <h3>Full map wrapper (<code>output: 'map'</code>)</h3>
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">html</span></div>
+        <pre><span class="tok-tag">&lt;map</span> name="my-map"<span class="tok-tag">&gt;</span>
+  <span class="tok-tag">&lt;area</span> shape="rect" coords="60,50,280,200" href="/page" alt="Region"<span class="tok-tag">&gt;</span>
+  <span class="tok-tag">&lt;area</span> shape="circle" coords="480,200,80" href="/hub" alt="Hub"<span class="tok-tag">&gt;</span>
+<span class="tok-tag">&lt;/map&gt;</span></pre>
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="callbacks">Callbacks</h2>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">js</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre><span class="tok-kw">new</span> kImgMap(img, {
+  <span class="tok-cmt">// Fired on every change (draw, drag, resize, attribute edit)</span>
+  onUpdate(html, areas) {
+    console.log(<span class="tok-str">'Updated:'</span>, areas.length, <span class="tok-str">'areas'</span>);
+    myOutput.textContent = html;
+  },
+
+  <span class="tok-cmt">// Fired only when the modal Save button is clicked</span>
+  onSave(html, areas) {
+    fetch(<span class="tok-str">'/save-map'</span>, {
+      method: <span class="tok-str">'POST'</span>,
+      body: JSON.stringify({ html, areas }),
+    });
+  },
+
+  <span class="tok-cmt">// Lifecycle</span>
+  onOpen() { console.log(<span class="tok-str">'Editor opened'</span>); },
+  onClose(saved) { console.log(<span class="tok-str">'Editor closed, saved:'</span>, saved); },
+});</pre>
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="instance-api">Instance API</h2>
+
+      <div class="table-wrap"><table class="option-table">
+        <thead>
+          <tr><th>Method</th><th>Returns</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>open()</td>
+            <td>void</td>
+            <td>Open the modal editor (modal mode only). Re-parses the textarea first.</td>
+          </tr>
+          <tr>
+            <td>close(saved?)</td>
+            <td>void</td>
+            <td>Close the modal immediately (no confirmation). <code>close()</code> / <code>close(false)</code> discards changes made since it opened; <code>close(true)</code> keeps them. Safe to call from inside <code>onSave</code>.</td>
+          </tr>
+          <tr>
+            <td>getAreas()</td>
+            <td>Area[]</td>
+            <td>Return a deep copy of all current area objects.</td>
+          </tr>
+          <tr>
+            <td>setAreas(areas)</td>
+            <td>void</td>
+            <td>Replace all areas with the supplied array. Re-renders, syncs output and starts a new undo history. Each area needs a known <code>shape</code> and enough numeric <code>coords</code> (an array, or a string as in HTML); others are skipped with a console warning. Ids are made unique strings; attribute names that can't be written to a tag are dropped. Throws a <code>TypeError</code> if <code>areas</code> isn't an array.</td>
+          </tr>
+          <tr>
+            <td>undo() / redo()</td>
+            <td>void</td>
+            <td>Undo or redo the last change (also <kbd>Ctrl/Cmd+Z</kbd>, <kbd>Ctrl/Cmd+Shift+Z</kbd> / <kbd>Ctrl+Y</kbd> and the toolbar buttons). While a polygon is being drawn, <code>undo()</code> removes its last point. Each modal session (and each <code>setAreas()</code>) starts a new history of up to 100 steps.</td>
+          </tr>
+          <tr>
+            <td>getHTML()</td>
+            <td>string</td>
+            <td>Return the current output HTML string without syncing to the textarea.</td>
+          </tr>
+          <tr>
+            <td>destroy()</td>
+            <td>void</td>
+            <td>Remove all editor UI and restore the original DOM, including showing the textarea again. The image can then get a new editor.</td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <h3>Area object shape</h3>
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">js</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre>{
+  id:     <span class="tok-str">'kima-1-ab3c'</span>,     <span class="tok-cmt">// internal unique id</span>
+  shape:  <span class="tok-str">'rect'</span>,             <span class="tok-cmt">// 'rect' | 'circle' | 'poly'</span>
+  coords: [<span class="tok-num">60</span>, <span class="tok-num">50</span>, <span class="tok-num">280</span>, <span class="tok-num">200</span>], <span class="tok-cmt">// natural-pixel coordinates</span>
+  attrs: {                    <span class="tok-cmt">// attributes that are set (empty fields are absent)</span>
+    href:  <span class="tok-str">'/page'</span>,
+    alt:   <span class="tok-str">'North Region'</span>,
+    <span class="tok-str">'data-value'</span>: <span class="tok-str">'north'</span>,
+  },
+}</pre>
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="static-api">Static API</h2>
+
+      <div class="table-wrap"><table class="option-table">
+        <thead>
+          <tr><th>Method</th><th>Returns</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>kImgMap.init(selector?, options?)</td>
+            <td>kImgMap[]</td>
+            <td>Initialise all matching containers. Default selector: <code>'[data-kimgmap]'</code>. Returns an array of instances; containers that already have an editor return the existing one.</td>
+          </tr>
+          <tr>
+            <td>kImgMap.get(img)</td>
+            <td>kImgMap | null</td>
+            <td>The editor attached to <code>img</code> (element or selector). An image has at most one editor — <code>new kImgMap()</code> on an image that already has one throws; <code>destroy()</code> it first.</td>
+          </tr>
+          <tr>
+            <td>kImgMap.responsive(img)</td>
+            <td>function</td>
+            <td>Scale the <code>&lt;map&gt;</code> that <code>img</code>'s <code>usemap</code> points to so it lines up with the image at its displayed size, and keep it in sync on resize. <code>img</code> may be an element or selector. Returns <code>stop()</code>, which disconnects and restores the original coords. See <a href="#publishing">Publishing the map</a>.</td>
+          </tr>
+          <tr>
+            <td>kImgMap.version</td>
+            <td>string</td>
+            <td>The current plugin version string, e.g. <code>'1.15.0'</code>.</td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="css-vars">CSS Variables</h2>
+
+      <p>All visual aspects of kImgMap are controlled by CSS custom properties
+         defined on <code>:root</code>. Override them on <code>:root</code>
+         (global) or on any ancestor element (scoped) to theme the plugin. Inline editors
+         sit where the image was, so wrapper selectors work; the modal is appended to
+         <code>&lt;body&gt;</code>, so scope modal themes to <code>:root</code> or
+         <code>.kimgmap-overlay</code> — or give one instance its own class with the
+         <code>className</code> option, which works for both.</p>
+
+      <div class="table-wrap"><table class="option-table">
+        <thead>
+          <tr><th>Variable</th><th>Default</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>--kimgmap-primary</td><td>#2563eb</td><td>Primary interactive colour (buttons, active tools, focus rings) — keep white text on it ≥ 4.5:1</td></tr>
+          <tr><td>--kimgmap-primary-dark</td><td>#1d4ed8</td><td>Primary colour on hover / pressed</td></tr>
+          <tr><td>--kimgmap-accent</td><td>#f59e0b</td><td>Accent colour (reserved for custom themes)</td></tr>
+          <tr><td>--kimgmap-accent-dark</td><td>#d97706</td><td>Darker accent shade</td></tr>
+          <tr><td>--kimgmap-danger</td><td>#dc2626</td><td>Delete button and danger actions</td></tr>
+          <tr><td>--kimgmap-danger-dark</td><td>#b91c1c</td><td>Darker danger shade</td></tr>
+          <tr><td>--kimgmap-danger-text</td><td>#b91c1c</td><td>Error message text on tinted backgrounds</td></tr>
+          <tr><td>--kimgmap-text-on-danger</td><td>#ffffff</td><td>Text on danger-coloured backgrounds</td></tr>
+          <tr><td>--kimgmap-bg</td><td>#ffffff</td><td>Editor background (modal, sidebar)</td></tr>
+          <tr><td>--kimgmap-surface</td><td>#f8fafc</td><td>Toolbar and muted surface background</td></tr>
+          <tr><td>--kimgmap-surface-raised</td><td>#f1f5f9</td><td>Hovered / active surface</td></tr>
+          <tr><td>--kimgmap-border</td><td>#e2e8f0</td><td>Borders and dividers</td></tr>
+          <tr><td>--kimgmap-input-border</td><td>#7c8799</td><td>Form field borders (≥ 3:1 against their background)</td></tr>
+          <tr><td>--kimgmap-text</td><td>#1e293b</td><td>Primary text colour</td></tr>
+          <tr><td>--kimgmap-text-muted</td><td>#64748b</td><td>Secondary / placeholder text</td></tr>
+          <tr><td>--kimgmap-text-on-primary</td><td>#ffffff</td><td>Text on primary-coloured backgrounds</td></tr>
+          <tr><td>--kimgmap-backdrop</td><td>rgba(15,23,42,.65)</td><td>Modal overlay backdrop colour</td></tr>
+          <tr><td>--kimgmap-shadow</td><td>0 20px 60px -12px rgba(0,0,0,.35), …</td><td>Modal drop shadow</td></tr>
+          <tr><td>--kimgmap-shadow-sm</td><td>0 1px 3px rgba(0,0,0,.08), …</td><td>Small elevation shadow</td></tr>
+          <tr><td>--kimgmap-inline-max-height</td><td>80vh</td><td>Maximum height of the inline editor's image area (taller images scroll)</td></tr>
+          <tr><td>--kimgmap-radius</td><td>8px</td><td>Corner radius for modal and cards</td></tr>
+          <tr><td>--kimgmap-radius-sm</td><td>4px</td><td>Corner radius for buttons and inputs</td></tr>
+          <tr><td>--kimgmap-font</td><td>'Geist', 'Inter', system-ui, -apple-system, sans-serif</td><td>Font family for all editor UI</td></tr>
+          <tr><td>--kimgmap-area-fill</td><td>rgba(37,99,235,.15)</td><td>Fill of unselected areas</td></tr>
+          <tr><td>--kimgmap-area-stroke</td><td>#2563eb</td><td>Stroke of unselected areas</td></tr>
+          <tr><td>--kimgmap-area-hover-fill</td><td>rgba(37,99,235,.28)</td><td>Fill when hovering an area</td></tr>
+          <tr><td>--kimgmap-sel-fill</td><td>rgba(245,158,11,.2)</td><td>Fill of selected areas</td></tr>
+          <tr><td>--kimgmap-sel-stroke</td><td>#f59e0b</td><td>Stroke of selected areas</td></tr>
+          <tr><td>--kimgmap-handle-fill</td><td>#ffffff</td><td>Fill colour of resize handles</td></tr>
+          <tr><td>--kimgmap-handle-stroke</td><td>#2563eb</td><td>Stroke colour of resize handles</td></tr>
+          <tr><td>--kimgmap-preview-fill</td><td>rgba(37,99,235,.1)</td><td>Fill of in-progress shape preview</td></tr>
+          <tr><td>--kimgmap-preview-stroke</td><td>#2563eb</td><td>Stroke of in-progress shape preview</td></tr>
+        </tbody>
+      </table></div>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="dark-theme">Dark Theme</h2>
+
+      <p>kImgMap ships with built-in light and dark palettes.</p>
+
+      <h3>1. The <code>theme</code> option</h3>
+      <p><code>'dark'</code> or <code>'light'</code> fixes the palette; <code>'auto'</code> follows the
+         operating system's setting and switches live. It applies to the inline editor or to
+         the modal from its first frame.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">js</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre><span class="tok-kw">new</span> kImgMap(img, { theme: <span class="tok-str">'auto'</span> });</pre>
+      </div>
+
+      <p>Without the option you can set <code>data-theme="dark"</code> (or <code>"light"</code>) on
+         the <code>.kimgmap-editor</code> element of an inline editor yourself. The theme rules
+         have no specificity, so your own token overrides still win inside them.</p>
+
+      <p>To override a component style rather than a token, match the plugin's selectors, which
+         are scoped to the editor so CSS frameworks can't restyle it — e.g.
+         <code>.kimgmap-editor .kimgmap-tool { border-radius: 0; }</code> (or <code>.kimgmap-modal …</code>
+         for the modal's own buttons).</p>
+
+      <h3>2. Via CSS custom properties</h3>
+      <p>Override the surface and text variables on a parent element. This
+         approach gives you full control:</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">css</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre>.my-dark-editor .kimgmap-editor {
+  --kimgmap-bg:             #0f172a;
+  --kimgmap-surface:        #1e293b;
+  --kimgmap-surface-raised: #2d3d52;
+  --kimgmap-border:         #334155;
+  --kimgmap-text:           #f1f5f9;
+  --kimgmap-text-muted:     #94a3b8;
+}</pre>
+      </div>
+
+      <h3>3. Respect <code>prefers-color-scheme</code></h3>
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">css</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre>@media (prefers-color-scheme: dark) {
+  :root {
+    --kimgmap-bg:             #0f172a;
+    --kimgmap-surface:        #1e293b;
+    --kimgmap-surface-raised: #2d3d52;
+    --kimgmap-border:         #334155;
+    --kimgmap-text:           #f1f5f9;
+    --kimgmap-text-muted:     #94a3b8;
+  }
+}</pre>
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="theme-example">Full Custom Theme Example</h2>
+
+      <p>Override variables on a scoped selector to create a completely
+         distinct palette without touching global styles. To theme one instance — inline
+         or modal — give it a class with <code>className: 'my-theme'</code> and use
+         <code>.my-theme</code> as the selector (for a dark palette, add <code>theme: 'dark'</code>
+         too, so the danger and field-border tokens suit a dark background):</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">css</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre>.my-theme,                              <span class="tok-cmt">/* className: 'my-theme' — the inline editor or the modal */</span>
+.my-editor-wrapper .kimgmap-open-btn {   <span class="tok-cmt">/* the trigger button sits in your page */</span>
+  <span class="tok-cmt">/* Brand colour — indigo */</span>
+  --kimgmap-primary:          #4f46e5;
+  --kimgmap-primary-dark:     #4338ca;
+
+  <span class="tok-cmt">/* Accent colour — violet */</span>
+  --kimgmap-accent:           #a78bfa;
+  --kimgmap-accent-dark:      #7c3aed;
+
+  <span class="tok-cmt">/* Dark surfaces */</span>
+  --kimgmap-bg:               #1e1b4b;
+  --kimgmap-surface:          #312e81;
+  --kimgmap-surface-raised:   #3730a3;
+  --kimgmap-border:           #4338ca;
+  --kimgmap-text:             #e0e7ff;
+  --kimgmap-text-muted:       #a5b4fc;
+  --kimgmap-text-on-primary:  #ffffff;
+
+  <span class="tok-cmt">/* Area overlay colours */</span>
+  --kimgmap-area-fill:        rgba(129, 140, 248, 0.2);
+  --kimgmap-area-stroke:      #818cf8;
+  --kimgmap-sel-fill:         rgba(167, 139, 250, 0.25);
+  --kimgmap-sel-stroke:       #a78bfa;
+  --kimgmap-handle-fill:      #c7d2fe;
+  --kimgmap-handle-stroke:    #818cf8;
+  --kimgmap-preview-fill:     rgba(129, 140, 248, 0.12);
+  --kimgmap-preview-stroke:   #818cf8;
+}</pre>
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="touch">Touch &amp; Pen</h2>
+
+      <p>All drawing and editing works with touch and pen input as well as a mouse
+         (via Pointer Events). Dragging on the image draws or edits instead of
+         scrolling the page — the overlay sets <code>touch-action: none</code> — so on
+         small screens scroll using the area outside the image. Handles and hit targets
+         are finger-sized while you use touch and shrink back when you use a mouse or
+         pen (phones and tablets start large). Only the first
+         finger is tracked; extra touches are ignored, and an interrupted touch
+         (<code>pointercancel</code>) undoes the in-progress change.</p>
+
+      <p>With a pen, only tip contact draws or edits (barrel and eraser buttons are
+         ignored), hovering shows the polygon preview line, and touches that land
+         while the pen is drawing — e.g. a resting palm — are ignored.</p>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="keyboard">Keyboard Shortcuts</h2>
+
+      <p>Everything can be done without a pointer. In modal mode shortcuts are active
+         while the modal is open; in inline mode, while the editor has focus.</p>
+
+      <div class="table-wrap"><table class="option-table">
+        <thead><tr><th>Key</th><th>Action</th></tr></thead>
+        <tbody>
+          <tr><td>Escape</td><td>Leave a focused field; otherwise cancel in-progress polygon drawing; otherwise close the modal (asking first if there are unsaved changes)</td></tr>
+          <tr><td>Delete / Backspace</td><td>Delete the currently selected area (when no text field is focused)</td></tr>
+          <tr><td>Ctrl / Cmd + D</td><td>Duplicate the currently selected area (offset by 10px, selected immediately)</td></tr>
+          <tr><td>Ctrl / Cmd + Z</td><td>Undo (while drawing a polygon: remove its last point). In a text field, the field's own undo applies</td></tr>
+          <tr><td>Ctrl / Cmd + Shift + Z, Ctrl + Y</td><td>Redo</td></tr>
+          <tr><td>Tab / Shift+Tab</td><td>Move between controls (in the modal, focus stays inside the dialog)</td></tr>
+          <tr><td>← → Home End (toolbar)</td><td>Move between tools — the toolbar is a single Tab stop</td></tr>
+          <tr><td>Enter (image)</td><td>Add an area with the active tool, centred on the image</td></tr>
+          <tr><td>Arrow keys (image)</td><td>Move the selected area 1px (Shift: 10px)</td></tr>
+          <tr><td>Alt + arrow keys (image)</td><td>Resize the selected area (rect: right/bottom edge; circle: radius)</td></tr>
+          <tr><td>↑ ↓ Home End (area list)</td><td>Select another area</td></tr>
+          <tr><td>Coords field</td><td>Type exact coordinates; applied on Enter or when leaving the field</td></tr>
+          <tr><td>Double-click / double-tap</td><td>Close an in-progress polygon (or click/tap its first or last point; a ring marks the first point's closing zone)</td></tr>
+          <tr><td>Shift + drag / click (image)</td><td>With a drawing tool, start a new shape on top of an existing area instead of selecting it. Polygon points always land on areas once a polygon is started</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>Accessibility</h3>
+      <p>kImgMap aims for WCAG 2.2 AA. The modal is a labelled dialog (the page behind
+         it is made <code>inert</code>, focus is trapped and returned to the trigger on
+         close); the toolbar is an ARIA toolbar with pressed states; the area list is a
+         listbox; a polite live region announces additions, deletions, selection and
+         polygon progress; validation errors mark fields <code>aria-invalid</code> and
+         move focus to them. Default colours meet 4.5:1 text and 3:1 field-border
+         contrast in both themes, selection is shown by stroke weight and a list marker
+         rather than colour alone, and forced-colours and <code>prefers-reduced-motion</code>
+         are supported. If you override the colour tokens, keep their contrast; for a
+         custom <em>dark</em> palette, also use <code>theme: 'dark'</code> so the danger,
+         error-text and field-border tokens are the dark-background versions.</p>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="data-format">Coordinate Format</h2>
+
+      <p>All coordinates are stored in the standard HTML imagemap format —
+         natural image pixels, measured from the top-left corner of the image
+         at its <em>natural</em> (intrinsic) dimensions. The editor works at any
+         display size, but note that browsers apply <code>&lt;area&gt;</code>
+         coordinates to the image <em>as rendered</em>: the published map lines
+         up when the image is shown at its natural size, and needs scaling
+         when it is displayed larger or smaller — see
+         <a href="#publishing">Publishing the map</a>.</p>
+
+      <p>For <code>srcset</code> images with <code>w</code> descriptors
+         (<code>a.jpg 800w, b.jpg 1600w</code>), whose natural size depends on the
+         viewport, the largest candidate's declared width (with the image's
+         aspect ratio) defines the coordinate space.</p>
+
+      <div class="table-wrap"><table class="option-table">
+        <thead><tr><th>Shape</th><th>coords format</th></tr></thead>
+        <tbody>
+          <tr><td>rect</td><td><code>x1,y1,x2,y2</code> — top-left and bottom-right corners</td></tr>
+          <tr><td>circle</td><td><code>cx,cy,r</code> — center and radius</td></tr>
+          <tr><td>poly</td><td><code>x1,y1,x2,y2,…</code> — flat list of vertex pairs</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="callout callout-note">
+        <strong>Note:</strong> While <em>editing</em>, kImgMap maps the pointer to
+        natural pixels via SVG <code>viewBox</code>, so the editor works at any
+        display size. On the published page, scale the coordinates if the image
+        is displayed at a size different from its natural dimensions.
+      </div>
+
+      <h2 id="publishing">Publishing the Map</h2>
+
+      <p>Connect the image to the map with <code>usemap</code>, using
+         <code>output: 'map'</code> (or your own <code>&lt;map&gt;</code> wrapper):</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">html</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre><span class="tok-tag">&lt;img</span> src="floorplan.jpg" usemap="#floorplan" alt="Floor plan"<span class="tok-tag">&gt;</span>
+<span class="tok-tag">&lt;map</span> name="floorplan"<span class="tok-tag">&gt;</span>
+  <span class="tok-tag">&lt;area</span> shape="rect" coords="60,50,280,200" href="/north" alt="North wing"<span class="tok-tag">&gt;</span>
+<span class="tok-tag">&lt;/map&gt;</span></pre>
+      </div>
+
+      <p>If the image is displayed at any size other than its natural size (e.g.
+         <code>max-width: 100%</code> on a responsive page), scale the map to fit with
+         <code>kImgMap.responsive()</code>. It only needs the JavaScript file. The map's
+         coords must be in the image's <em>natural</em> pixels (what kImgMap writes); don't
+         put padding or a border on the mapped image (browsers differ on where they measure
+         from); the map is found by <code>name</code> or <code>id</code>; calling it again for
+         the same image returns the same <code>stop()</code>, and one map can't serve two
+         images shown at different sizes.</p>
+
+      <div class="code-block">
+        <div class="code-block-header">
+          <span class="code-lang">js</span>
+          <button type="button" class="copy-btn" data-copy>Copy</button>
+        </div>
+        <pre><span class="tok-kw">const</span> stop = kImgMap.responsive(<span class="tok-str">'img[usemap="#floorplan"]'</span>);  <span class="tok-cmt">// keeps the map in sync on resize</span>
+<span class="tok-cmt">// stop() disconnects and restores the original coords</span></pre>
+      </div>
+
+      <div class="callout callout-note">
+        <strong>Untrusted editors:</strong> kImgMap escapes attribute values and never writes an
+        attribute name that could break out of the tag, but it keeps whatever attributes the
+        input has — including event handlers such as <code>onclick</code> and
+        <code>javascript:</code> URLs. If people you don't trust can edit maps, sanitise the saved
+        HTML on the server.
+      </div>
+
+      <!-- ───────────────────────────────────────────────────────────────── -->
+      <h2 id="changelog">Changelog</h2>
+
+      <h3>v1.15.0</h3>
+      <ul>
+        <li><strong>Undo / redo</strong> — toolbar buttons, <kbd>Ctrl/Cmd+Z</kbd>, <kbd>Ctrl/Cmd+Shift+Z</kbd> / <kbd>Ctrl+Y</kbd>, and <code>undo()</code> / <code>redo()</code>. Typing in one field, or a run of arrow-key nudges, is one step; while a polygon is being drawn, undo removes its last point. Up to 100 steps per modal session; <code>setAreas()</code> starts a new history.</li>
+        <li><strong>ES module build</strong> — <code>docs/kImgMap.mjs</code> and <code>docs/kImgMap.min.mjs</code> with default and named exports, and a <code>package.json</code> <code>exports</code> map (<code>import</code> → ES module, <code>require</code> → UMD). The earlier "import as an ES module" example only worked through a bundler's CommonJS interop.</li>
+        <li><strong><code>theme</code> option</strong> (<code>'light'</code> | <code>'dark'</code> | <code>'auto'</code>) — applies to the modal from its first frame (no <code>onOpen</code> workaround), and <code>'auto'</code> follows the OS setting live. The theme rules no longer outrank your own token overrides.</li>
+        <li><strong><code>className</code> option</strong> — scope a custom theme to one instance, modal included.</li>
+        <li><strong>Clear All asks inside the editor</strong> instead of with <code>window.confirm()</code>, which sandboxed iframes block. Cancel or <kbd>Escape</kbd> keeps the areas; the confirm button uses <code>labels.clearAll</code>.</li>
+        <li><strong>Drawing over existing areas</strong> — once a polygon is started its points can land on other areas, and <kbd>Shift</kbd> + drag/click starts a new shape on top of an area.</li>
+        <li><strong>How-to line</strong> under the toolbar for the active tool (labels <code>tipSelect</code>, <code>tipRect</code>, <code>tipCircle</code>, <code>tipShift</code>, <code>tipPoly</code>; hide it with <code>.kimgmap-tip { display: none }</code>), and a ring marking where clicking finishes a polygon.</li>
+        <li><strong>API hardening:</strong> <code>setAreas()</code> validates its input — unusable areas are skipped with a console warning, ids become unique strings, and a non-array throws a <code>TypeError</code>. Attribute names that would break out of the <code>&lt;area&gt;</code> tag (spaces, quotes, <code>=</code>, <code>&gt;</code>, <code>/</code>) are never written, whether they come from <code>setAreas()</code>, <code>onAttributeChange</code> or the options; unknown shapes and invalid attribute options are dropped with a warning. An image can have only one editor: a second <code>new kImgMap()</code> throws and <code>kImgMap.init()</code> returns the existing one. New <code>kImgMap.get(img)</code>. <code>open()</code> after <code>destroy()</code> does nothing.</li>
+        <li><strong>Breaking (CSS):</strong> the plugin's control rules are now two-class selectors such as <code>:is(.kimgmap-editor, .kimgmap-modal) .kimgmap-tool</code>, so an override written as <code>.kimgmap-tool { … }</code> no longer applies — prefix it with <code>.kimgmap-editor</code> (or <code>.kimgmap-modal</code>), or use the <code>--kimgmap-*</code> tokens.</li>
+        <li><strong>Breaking:</strong> callbacks (<code>onUpdate</code>, <code>onSave</code>, <code>onAttributeChange</code>) now receive copies of the areas, so changing them no longer changes the editor — use <code>setAreas()</code>.</li>
+        <li>Fixed: a page that stopped <code>pointerup</code> from bubbling could leave a drag stuck; the listeners are now capture-phase on <code>window</code>.</li>
+        <li>Fixed: CSS frameworks such as Pico restyled the editor's buttons, fields and labels, and the Edit Image Map / Show Code buttons. The plugin now uses border-box sizing throughout and resets its controls with selectors that outrank framework rules. The inline editor is a labelled <code>region</code> named after the image's <code>alt</code>, instead of a <code>group</code>.</li>
+        <li>Property fields use 16px text on touch screens, so iOS doesn't zoom the page when one is focused.</li>
+        <li>Faster with many areas: adding, duplicating and deleting no longer re-render every area, and rendering reads layout once rather than twice per area (with 1,000 areas, about 100 ms → under 20 ms per change).</li>
+        <li><code>LICENSE</code> file; GitHub Actions test workflow; <code>npm run build</code> now runs <code>scripts/build.js</code> (and <code>npm run check-build</code> checks the builds are current); browser support is documented.</li>
+        <li>Docs site: no sideways scrolling on phones, navigation on small screens, AA contrast in both themes, underlined links in running text, and an <code>&lt;h1&gt;</code> on the docs page.</li>
+      </ul>
+
+      <h3>v1.14.0</h3>
+      <ul>
+        <li><strong>New: <code>kImgMap.responsive(img)</code></strong> — keeps a published <code>&lt;map&gt;</code> lined up with its image at any display size; returns a <code>stop()</code> function. Works with any image map.</li>
+        <li>Fixed: in inline mode, an image wider than the editor lost its left edge; images now fit the editor's width, and very tall ones scroll inside the image area (capped at <code>--kimgmap-inline-max-height</code>, default <code>80vh</code>).</li>
+        <li>Fixed: host-page <code>img</code> styles (padding, borders, <code>object-fit</code>, <code>width: 100%</code>) and width/height attributes could misalign or distort the image under the overlay; the overlay also stretches with the image if CSS changes its aspect ratio.</li>
+        <li>Inline mode supports images inside <code>&lt;picture&gt;</code> and inside links, buttons or labels (clicks don't navigate); both are restored by <code>destroy()</code>.</li>
+        <li>Areas that already extend past the image (e.g. imported) no longer jump inside when first moved, resized or nudged.</li>
+        <li>Minimum shape size and handle / hit-target sizes are measured in screen pixels — no junk areas from jitter on very large photos, no oversized handles on small upscaled images.</li>
+      </ul>
+
+      <h3>v1.13.0</h3>
+      <ul>
+        <li><strong>Keyboard operation</strong> — the image area is a focusable canvas: <kbd>Enter</kbd> adds an area with the active tool, arrow keys move the selection (<kbd>Shift</kbd>: 10px) and <kbd>Alt</kbd>+arrows resize it; the Coords field is now editable (validated and clamped); the toolbar is a single Tab stop with arrow-key navigation; the area list is a keyboard-operable listbox.</li>
+        <li><strong>Modal dialog semantics</strong> — <code>role="dialog"</code> with a labelled <code>&lt;h2&gt;</code> title, the rest of the page is made <code>inert</code>, <kbd>Tab</kbd> stays inside the dialog, and focus returns to the trigger on close.</li>
+        <li><strong>Screen reader support</strong> — tool buttons expose <code>aria-pressed</code>; a live region announces additions, deletions, duplicates, Clear All, selection and polygon progress; validation errors set <code>aria-invalid</code>, describe the problem and move focus to the first invalid field, and are re-announced on every failed Save; decorative SVGs are hidden.</li>
+        <li><strong>Contrast</strong> — default <code>--kimgmap-primary</code> is now <code>#2563eb</code> and <code>--kimgmap-danger</code> <code>#dc2626</code>; new tokens <code>--kimgmap-input-border</code>, <code>--kimgmap-danger-text</code>, <code>--kimgmap-text-on-danger</code>; dark-theme overrides for danger and field borders; shape badges use the theme's text colour.</li>
+        <li>Selection no longer relies on colour (thicker stroke, list marker); forced-colours rules; <code>prefers-reduced-motion</code> turns off the error pulse and modal animation.</li>
+        <li>Delete and Clear All are disabled when there is nothing to act on.</li>
+        <li>List labels prefer <code>title</code>, then <code>alt</code>, then <code>href</code>, then the localised shape name.</li>
+        <li>New label keys: <code>toolbar</code>, <code>canvas</code>, <code>canvasHint</code>, <code>drawHint</code>, <code>polyHint</code>, <code>polyStarted</code>, <code>polyCancelled</code>, <code>added</code>, <code>deleted</code>, <code>duplicated</code>, <code>cleared</code>, <code>coordsRect</code>, <code>coordsCircle</code>, <code>coordsPoly</code>, <code>invalidCoords</code>.</li>
+        <li>Test suite: axe-core scans, a keyboard-only end-to-end session, contrast checks in both themes; failed tests are retried once and reported as flaky if they then pass.</li>
+      </ul>
+
+      <h3>v1.12.0</h3>
+      <ul>
+        <li><strong>Unsaved changes are protected</strong> — <kbd>Escape</kbd>, the &times; button and backdrop clicks now ask before discarding edits (new <code>confirmDiscard</code> option, default <code>true</code>; labels <code>discardPrompt</code>, <code>keepEditing</code>, <code>discardChanges</code>). Cancel still discards immediately.</li>
+        <li><strong>Escape in a property field</strong> now just leaves the field instead of closing the modal and discarding the session.</li>
+        <li>Fixed: calling <code>destroy()</code> or <code>close()</code> from inside <code>onSave</code> restored the pre-edit state and reported <code>onClose(false)</code> — the save is now kept and <code>onClose(true)</code> fires.</li>
+        <li><strong>Lossless round trips</strong> — attributes that are present but empty (<code>alt=""</code>, <code>nohref</code>) are kept; <code>&lt;area&gt;</code> tags that can't be edited visually (<code>shape="default"</code>, too few coords) are preserved verbatim and appended; the textarea's <code>&lt;map name&gt;</code> is reused when <code>mapName</code> isn't set. Non-editable areas follow <code>outputAttributes</code>, are kept by <code>setAreas()</code> and removed by Clear All.</li>
+        <li><strong>Breaking:</strong> an area's <code>attrs</code> now only contains attributes that are actually set. New areas start with <code>attrs: {}</code> and clearing a field deletes that key — use <code>(area.attrs.title ?? '')</code> rather than <code>area.attrs.title.trim()</code>.</li>
+        <li>Fixed: for <code>srcset</code> images the modal used the pixel size of whichever candidate loaded, so coordinates could be 2&times; off depending on the device. Coordinates now use the page image's natural size; with <code>w</code> descriptors (whose natural size follows the viewport) they use the largest candidate's declared width. The coordinate space is fixed for the whole session.</li>
+        <li>The discard prompt makes the editor behind it inert; an in-progress polygon counts as an unsaved change; areas loaded in <code>onOpen</code> don't; if <code>onSave</code> throws, the session stays unsaved.</li>
+        <li>Fixed: pressing Enter in a property field submitted a <code>&lt;form&gt;</code> the editor was embedded in.</li>
+        <li>Fixed: after typing in a property field, the first click on another area in the list was lost; <code>onUpdate</code> / <code>onAttributeChange</code> no longer fire a second time when a field loses focus.</li>
+        <li>Fixed: <code>destroy()</code> restores the textarea's original inline style exactly.</li>
+        <li>The modal's Cancel and Save buttons have dedicated <code>kimgmap-cancel</code> / <code>kimgmap-save</code> classes.</li>
+        <li>Test suite: fails on uncaught page errors, per-test timeouts, exact checks for clamped values, more faithful simulated input, and ~30 new tests.</li>
+      </ul>
+
+      <h3>v1.11.1</h3>
+      <ul>
+        <li><strong>Palm rejection</strong> — a touch that lands while a pen (or mouse) interaction is in progress is ignored, and no longer switches handles to finger size mid-stroke; a pen or mouse press always takes over from a touch interaction that never ended.</li>
+        <li>Fixed: closing the modal before its first animation frame could leave the closing overlay fully visible during its fade-out.</li>
+        <li>Test suite now runs in Chromium, Firefox and WebKit, with mouse, touch and pen input, and checks that the minified builds are up to date.</li>
+      </ul>
+
+      <h3>v1.11.0</h3>
+      <ul>
+        <li><strong>Touch and pen support</strong> — all interaction now uses Pointer Events, so drawing, moving, resizing and selecting work with fingers and styluses as well as a mouse.</li>
+        <li>Handles (~11px) and hit targets (~24px) are enlarged while touch is in use, and return to mouse sizes for mouse/pen input — so touch-screen laptops stay precise with a mouse.</li>
+        <li>Dragging on the image no longer scrolls or zooms the page on touch devices (<code>touch-action: none</code> on the overlay).</li>
+        <li>Multi-touch: only the first finger drives an interaction; additional fingers are ignored.</li>
+        <li>An interrupted touch (<code>pointercancel</code>) now discards an in-progress draw and reverts an in-progress move/resize.</li>
+        <li>Polygons: clicking or tapping the last point again finishes the polygon (this is how double-click and double-tap close it, so no duplicate vertex); with fewer than 3 points such a click is ignored rather than discarding the polygon.</li>
+        <li>Areas are selected on press rather than on click, including with <code>editable: false</code> — taps register reliably, and pressing an area never starts a new shape on top of it.</li>
+        <li>An interaction whose release was lost (e.g. the touch ended outside the browser) no longer locks the editor — the next press of the same input takes over.</li>
+        <li>Handles are moved in place during a resize instead of being rebuilt, so the element under the finger is never removed mid-gesture (fixes stalled resizes on iOS).</li>
+        <li>Fixed: releasing a drag over the modal backdrop cancelled the modal and discarded all edits; only a press <em>and</em> release on the backdrop closes it now.</li>
+        <li>Touching the sidebar on a touch device no longer pulls focus away from a property field mid-scroll.</li>
+        <li>Added an automated browser test suite (<code>npm test</code>, Playwright) covering mouse and touch input against both the source and minified builds.</li>
+      </ul>
+
+      <h3>v1.10.0</h3>
+      <ul>
+        <li><strong>Security:</strong> textarea content is now parsed with an inert <code>DOMParser</code> (markup such as <code>&lt;img onerror&gt;</code> no longer executes), and all attribute values, shapes, and labels are HTML-escaped before rendering.</li>
+        <li><strong>Cancel now discards edits</strong> — closing the modal without saving restores the textarea and areas to their state when the modal opened (<code>onUpdate</code> fires with the restored HTML).</li>
+        <li>Keyboard shortcuts (<kbd>Delete</kbd>, <kbd>Ctrl/Cmd+D</kbd>, <kbd>Escape</kbd>) now also work in inline mode while the editor has focus; <kbd>Ctrl/Cmd+D</kbd> works with Shift/Caps Lock.</li>
+        <li>Parser accepts legacy shape aliases (<code>circ</code>, <code>polygon</code>, <code>rectangle</code>) and space/semicolon-separated coords, tolerates unit suffixes like <code>10px</code>, treats missing or invalid shapes as <code>rect</code> (per the HTML spec), normalises reversed rect coords, and skips areas with too few coords instead of rendering <code>NaN</code>.</li>
+        <li>Fixed: closing a polygon with a double-click added a duplicate final vertex.</li>
+        <li>Fixed: with the Polygon tool active, clicking a resize handle started a new polygon.</li>
+        <li>Fixed: <code>kImgMap.init()</code> without <code>data-kimgmap-shape</code> started in Select mode instead of <code>defaultShape</code> (options explicitly set to <code>undefined</code> no longer override defaults).</li>
+        <li>Fixed: <code>open()</code> while already open stacked a second overlay; reopening within 300&nbsp;ms of closing removed the new modal.</li>
+        <li>Fixed: <code>setAreas()</code> threw on a modal instance before its first <code>open()</code>.</li>
+        <li>Fixed: <code>close()</code> on an inline editor disabled it; <code>destroy()</code> no longer fires <code>onClose</code> when no modal was open.</li>
+        <li>Fixed: dragging a polygon against an image edge squashed it — it now moves as a whole; circles stay inside the image while drawing/resizing.</li>
+        <li>Fixed: right-click no longer starts a draw, drag or resize.</li>
+        <li>Fixed: resizing an unselected area showed its coords in the selected area's panel; it is now selected on resize.</li>
+        <li>Fixed: Duplicate stayed enabled after deleting the selected area; Clear All now clears validation errors.</li>
+        <li>Handles on areas touching the image edge are no longer clipped; handle size refreshes when the editor is resized.</li>
+        <li>Modal clone uses <code>currentSrc</code> (supports <code>srcset</code>-only images); the page's own <code>body</code> overflow style is restored on close.</li>
+        <li>New label keys: <code>areas</code>, <code>properties</code>, <code>shape</code>, <code>coords</code>, <code>close</code>, <code>missingTitle</code>, <code>confirmClear</code>.</li>
+        <li>CSS: toolbar wraps on narrow widths; below 640px tool labels hide and the sidebar stacks under the image; dark theme sets <code>color-scheme: dark</code>.</li>
+        <li>Repository layout: demo, docs, and minified builds now live in <code>docs/</code> (GitHub Pages).</li>
+      </ul>
+
+      <h3>v1.9.2</h3>
+      <ul>
+        <li>With <code>mandatoryTitles</code>, the Properties-panel field for a flagged area is now highlighted (red border) alongside the shape, list, and banner cues. When the title is mirrored from another attribute via <code>onAttributeChange</code> (so no <code>title</code> field is shown), each empty field is highlighted instead.</li>
+        <li>The field highlight and error state now clear live as the title is filled in, even when the title is populated indirectly through <code>onAttributeChange</code> rather than a direct <code>title</code> field.</li>
+      </ul>
+
+      <h3>v1.9.1</h3>
+      <ul>
+        <li>Properties panel: user-fillable attribute fields now appear above the read-only Shape and Coords rows.</li>
+      </ul>
+
+      <h3>v1.9.0</h3>
+      <ul>
+        <li>Both <code>attributes</code> and <code>customAttributes</code> now accept <code>{ attr, label }</code> objects alongside plain strings, allowing custom display names in the Properties panel. The actual attribute name is shown as a tooltip on the label. Fully backwards compatible — plain strings continue to work as before.</li>
+      </ul>
+
+      <h3>v1.8.0</h3>
+      <ul>
+        <li>Added <code>onAttributeChange(area, attr, value)</code> callback — return an object of attr overrides to mirror values across fields (e.g. populate <code>title</code> and <code>alt</code> from a custom attribute). Returned values are applied to the area and reflected live in visible panel inputs.</li>
+        <li>Removed <code>fillAltWithTitle</code> option — the same behaviour is now achievable via <code>onAttributeChange</code>.</li>
+      </ul>
+
+      <h3>v1.7.1</h3>
+      <ul>
+        <li>Replaced separate Copy and Paste buttons with a single <strong>Duplicate</strong> button that copies and immediately pastes the selected area (offset by 10px). Keyboard shortcut is <kbd>Ctrl/Cmd+D</kbd>.</li>
+      </ul>
+
+      <h3>v1.7.0</h3>
+      <ul>
+        <li>Added copy and paste for areas — toolbar buttons and <kbd>Ctrl/Cmd+C</kbd> / <kbd>Ctrl/Cmd+V</kbd> keyboard shortcuts. Pasted area is offset by 10px so it is visibly separate from the original. Copy and Paste buttons are disabled when there is nothing to act on.</li>
+      </ul>
+
+      <h3>v1.6.1</h3>
+      <ul>
+        <li>Fixed: validation error banner was visible on open due to CSS <code>display: flex</code> overriding the <code>hidden</code> attribute. Added <code>.kimgmap-validation-banner[hidden] { display: none }</code> to enforce correct initial state.</li>
+      </ul>
+
+      <h3>v1.6.0</h3>
+      <ul>
+        <li>Added <code>mandatoryTitles</code> option — Save is blocked if any area is missing a title. Missing areas are highlighted with a pulsing red error cue on the canvas and a <code>!</code> indicator in the sidebar list. Errors clear automatically as titles are filled in. Label customisable via <code>labels.errorMissingTitles</code>.</li>
+      </ul>
+
+      <h3>v1.5.0</h3>
+      <ul>
+        <li>Fixed: clicking or dragging an existing area while a draw tool is active now correctly moves the area instead of starting a new draw on top of it. The cursor already indicated move behaviour — now the interaction matches.</li>
+      </ul>
+
+      <h3>v1.4.1</h3>
+      <ul>
+        <li>Fixed <code>destroy()</code> with <code>showTextarea: 'optional'</code> — the textarea now preserves its current visibility state (hidden or shown) rather than always being restored to visible</li>
+      </ul>
+
+      <h3>v1.4.0</h3>
+      <ul>
+        <li>Added <code>showTextarea: 'optional'</code> — renders a <strong>Show Code</strong> toggle button to the right of the trigger button that shows or hides the textarea on demand. Label customisable via <code>labels.showCode</code> / <code>labels.hideCode</code>.</li>
+      </ul>
+
+      <h3>v1.3.0</h3>
+      <ul>
+        <li>Fixed <code>outputAttributes</code> — all listed attributes are now always written to output, even when empty, so attrs like <code>alt</code> and <code>target</code> that have no UI field are no longer silently dropped</li>
+        <li>Added <code>showTextarea</code> option — keeps the textarea visible below the trigger button instead of hiding it</li>
+      </ul>
+
+      <h3>v1.2.0</h3>
+      <ul>
+        <li>Added <code>outputAttributes</code> option — explicit control over which attributes are written to <code>&lt;area&gt;</code> output, independent of what is shown in the UI</li>
+        <li>Fixed <code>fillAltWithTitle</code> — now mirrors title into <code>alt</code> in the output even when <code>alt</code> is not listed in <code>attributes</code></li>
+      </ul>
+
+      <h3>v1.1.0</h3>
+      <ul>
+        <li>Added <code>fillAltWithTitle</code> option — automatically mirrors the <code>title</code> field value into <code>alt</code> as you type</li>
+      </ul>
+
+      <h3>v1.0.0 — Initial release</h3>
+      <ul>
+        <li>Modal and inline editor modes</li>
+        <li>Rectangle, circle, and polygon drawing tools</li>
+        <li>Move and resize after drawing (8-handle rect, 1-handle circle, vertex handles for poly)</li>
+        <li>Configurable attribute panel with support for custom attributes</li>
+        <li>Parse existing <code>&lt;area&gt;</code> tags from textarea on open</li>
+        <li>Full CSS-variable theming with built-in dark theme</li>
+        <li>UMD module — works as a global script, CommonJS, or AMD</li>
+        <li><code>data-kimgmap</code> auto-init support</li>
+        <li>Public API: <code>getAreas</code>, <code>setAreas</code>, <code>getHTML</code>, <code>destroy</code></li>
+      </ul>
+
+    </article>
+  </div><!-- /docs-grid -->
+</main>
+
+<footer class="site-footer">
+  <p>kImgMap v1.15.0 — Part of the <strong>K</strong> series &nbsp;·&nbsp;
+     <a href="index.html">Examples</a> &nbsp;·&nbsp;
+     <a href="https://github.com/KAStrack/kImgMap">GitHub</a> &nbsp;·&nbsp;
+     MIT License</p>
+</footer>
+
+<script src="kImgMap.min.js"></script>
+<script>
+/* ── Theme switcher ─────────────────────────────────────────────────────── */
+const html      = document.documentElement;
+const themeBtns = document.querySelectorAll('.theme-btn');
+
+// (storage can be unavailable — private windows, blocked site data)
+const store = { get: k => { try { return localStorage.getItem(k); } catch { return null; } },
+                set: (k, v) => { try { localStorage.setItem(k, v); } catch { /* not remembered */ } } };
+
+function setTheme(t) {
+  html.className = `theme-${t}`;
+  themeBtns.forEach(b => {
+    b.classList.toggle('active', b.dataset.theme === t);
+    b.setAttribute('aria-pressed', String(b.dataset.theme === t));
+  });
+  store.set('kimgmap-site-theme', t);
+}
+
+themeBtns.forEach(btn => btn.addEventListener('click', () => setTheme(btn.dataset.theme)));
+setTheme(store.get('kimgmap-site-theme') || 'auto');
+
+/* ── Scrollable code can be scrolled from the keyboard ─────────────────── */
+document.querySelectorAll('pre, .output-code').forEach(el => { el.tabIndex = 0; });
+
+/* ── Copy buttons ───────────────────────────────────────────────────────── */
+document.querySelectorAll('.copy-btn[data-copy]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const pre = btn.closest('.code-block').querySelector('pre');
+    navigator.clipboard.writeText(pre.textContent).then(() => {
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+    });
+  });
+});
+
+/* ── Docs nav: collapsed on small screens, closes after picking a section ── */
+const navDetails = document.querySelector('.docs-nav-details');
+const narrow = matchMedia('(max-width: 768px)');
+const syncNav = () => { navDetails.open = !narrow.matches; };
+syncNav();
+narrow.addEventListener('change', syncNav);
+navDetails.addEventListener('click', e => { if (narrow.matches && e.target.closest('a')) navDetails.open = false; });
+
+/* ── Active docs nav link ───────────────────────────────────────────────── */
+const sections = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('.docs-nav-link');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id);
+      });
+    }
+  });
+}, { rootMargin: '-80px 0px -60% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

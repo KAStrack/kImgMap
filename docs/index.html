@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" class="theme-auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>kImgMap — Examples</title>
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="kImgMap.min.css">
+  <style>
+    /* ── Page-specific tweaks ────────────────────────────────────────────── */
+    .demo-image {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+    }
+
+    /* Live output area for examples */
+    .demo-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* Example 5 — custom violet/indigo theme via CSS variables, on the
+       class given with the className option (works for modals too) */
+    .indigo-theme {
+      --kimgmap-primary:        #4f46e5;
+      --kimgmap-primary-dark:   #4338ca;
+      --kimgmap-accent:         #a78bfa;
+      --kimgmap-bg:             #1e1b4b;
+      --kimgmap-surface:        #312e81;
+      --kimgmap-surface-raised: #3730a3;
+      --kimgmap-border:         #4338ca;
+      --kimgmap-text:           #e0e7ff;
+      --kimgmap-text-muted:     #a5b4fc;
+      --kimgmap-area-fill:      rgba(129,140,248,0.2);
+      --kimgmap-area-stroke:    #818cf8;
+      --kimgmap-sel-fill:       rgba(167,139,250,0.25);
+      --kimgmap-sel-stroke:     #a78bfa;
+      --kimgmap-handle-fill:    #c7d2fe;
+      --kimgmap-handle-stroke:  #818cf8;
+      --kimgmap-preview-fill:   rgba(129,140,248,0.12);
+      --kimgmap-preview-stroke: #818cf8;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     Navigation
+════════════════════════════════════════════════════════════════════════════ -->
+<nav class="site-nav">
+  <a href="index.html" class="nav-brand">
+    <span class="brand-k">k</span>
+    kImgMap
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="active">Examples</a>
+    <a href="docs.html">Documentation</a>
+    <a href="https://github.com/KAStrack/kImgMap">GitHub</a>
+  </div>
+  <div class="nav-actions">
+    <div class="theme-switcher" role="group" aria-label="Color theme">
+      <button type="button" class="theme-btn" data-theme="light" title="Light" aria-label="Light theme">☀️</button>
+      <button type="button" class="theme-btn active" data-theme="auto"  title="Auto" aria-label="Automatic theme">🌗</button>
+      <button type="button" class="theme-btn" data-theme="dark"  title="Dark" aria-label="Dark theme">🌙</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     Hero
+════════════════════════════════════════════════════════════════════════════ -->
+<main class="site-main">
+  <div class="page-hero">
+    <h1>Visual image map<br><em>editing made easy.</em></h1>
+    <p>kImgMap is a zero-dependency JavaScript plugin that replaces a plain textarea
+       with a fully interactive SVG editor — draw, move, resize, and configure
+       HTML imagemap areas with ease.</p>
+    <div class="hero-badges">
+      <span class="badge"><span class="badge-dot"></span>Zero dependencies</span>
+      <span class="badge"><span class="badge-dot"></span>UMD · ES module · CommonJS</span>
+      <span class="badge"><span class="badge-dot"></span>Rect · Circle · Polygon</span>
+      <span class="badge"><span class="badge-dot"></span>Mouse · Touch · Pen</span>
+      <span class="badge"><span class="badge-dot"></span>CSS-variable theming</span>
+      <span class="badge"><span class="badge-dot"></span>~20 kB gzipped</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       Example 1 — Modal mode
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="example-section" id="ex-modal">
+    <span class="section-label">Example 1</span>
+    <h2 class="section-title">Modal Editor</h2>
+    <p class="section-desc">
+      Default mode. kImgMap hides the textarea and adds an "Edit Image Map"
+      button. Clicking it opens a full-screen modal editor — draw areas,
+      set attributes, then Save.
+    </p>
+
+    <div class="example-card">
+      <div class="example-header">
+        <span class="example-title">Modal — all shapes, all standard attributes</span>
+        <span class="example-tag tag-modal">modal</span>
+      </div>
+      <div class="example-body">
+        <!-- Auto-init container -->
+        <div data-kimgmap data-kimgmap-mode="modal" id="ex1-container">
+          <img
+            src="https://picsum.photos/seed/map1/760/440"
+            alt="Sample landscape"
+            class="demo-image"
+            style="display:block;"
+          >
+          <textarea id="ex1-output"></textarea>
+        </div>
+
+        <div class="output-preview" style="margin-top:20px;">
+          <p class="output-label">Live output</p>
+          <div class="output-code" id="ex1-code"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       Example 2 — Inline mode
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="example-section" id="ex-inline">
+    <span class="section-label">Example 2</span>
+    <h2 class="section-title">Inline Editor</h2>
+    <p class="section-desc">
+      Set <code>mode: 'inline'</code> to embed the editor directly in the page.
+      Changes sync to the textarea in real time — no Save button needed.
+    </p>
+
+    <div class="example-card">
+      <div class="example-header">
+        <span class="example-title">Inline — real-time output</span>
+        <span class="example-tag tag-inline">inline</span>
+      </div>
+      <div class="example-body">
+        <div data-kimgmap data-kimgmap-mode="inline" id="ex2-container">
+          <img
+            src="https://picsum.photos/seed/map2/760/400"
+            alt="Sample city"
+            class="demo-image"
+          >
+          <textarea id="ex2-output"></textarea>
+        </div>
+
+        <div class="output-preview">
+          <p class="output-label">Live output (updates instantly)</p>
+          <div class="output-code" id="ex2-code"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       Example 3 — Parse existing + custom attributes
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="example-section" id="ex-custom">
+    <span class="section-label">Example 3</span>
+    <h2 class="section-title">Parse Existing + Custom Attributes</h2>
+    <p class="section-desc">
+      Pass existing <code>&lt;area&gt;</code> tags in the textarea — kImgMap
+      parses and displays them on open. Use <code>customAttributes</code> to
+      expose any non-standard attributes (e.g. <code>data-value</code>).
+    </p>
+
+    <div class="example-card">
+      <div class="example-header">
+        <span class="example-title">Modal — pre-loaded areas + data-value, data-category</span>
+        <span class="example-tag tag-custom">custom attrs</span>
+      </div>
+      <div class="example-body">
+        <img
+          id="ex3-img"
+          src="https://picsum.photos/seed/map3/760/400"
+          alt="Sample nature"
+          class="demo-image"
+          style="display:block;"
+        >
+        <textarea id="ex3-ta">
+&lt;area shape="rect" coords="60,50,280,200" href="/region/north" alt="North Region" data-value="north" data-category="primary">
+&lt;area shape="circle" coords="480,200,80" href="/region/central" alt="Central Hub" data-value="central" data-category="primary">
+&lt;area shape="poly" coords="580,300,680,260,750,340,660,380,580,350" href="/region/south" alt="South Zone" data-value="south" data-category="secondary">
+        </textarea>
+
+        <div class="output-preview" style="margin-top:20px;">
+          <p class="output-label">Live output</p>
+          <div class="output-code" id="ex3-code"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       Example 4 — Restrict shapes + <map> output
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="example-section" id="ex-shapes">
+    <span class="section-label">Example 4</span>
+    <h2 class="section-title">Shape Restriction + Full &lt;map&gt; Output</h2>
+    <p class="section-desc">
+      Configure <code>shapes</code> to expose only the tools you need.
+      Set <code>output: 'map'</code> to wrap the output in a
+      <code>&lt;map name="…"&gt;</code> element.
+    </p>
+
+    <div class="example-card">
+      <div class="example-header">
+        <span class="example-title">Rect only — full &lt;map&gt; output</span>
+        <span class="example-tag tag-modal">modal</span>
+      </div>
+      <div class="example-body">
+        <img
+          id="ex4-img"
+          src="https://picsum.photos/seed/map4/760/400"
+          alt="Sample architecture"
+          class="demo-image"
+          style="display:block;"
+        >
+        <textarea id="ex4-ta"></textarea>
+
+        <div class="output-preview" style="margin-top:20px;">
+          <p class="output-label">Output — full &lt;map&gt; wrapper</p>
+          <div class="output-code" id="ex4-code"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       Example 5 — Themed (custom colours)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="example-section" id="ex-theme">
+    <span class="section-label">Example 5</span>
+    <h2 class="section-title">Custom Theme</h2>
+    <p class="section-desc">
+      Give an editor its own class with the <code>className</code> option and
+      override any <code>--kimgmap-*</code> CSS variable on it to create a completely
+      custom look. Here the editor is restyled with an indigo–violet palette, on top of
+      <code>theme: 'dark'</code>.
+    </p>
+
+    <div class="example-card">
+      <div class="example-header">
+        <span class="example-title">Inline — indigo theme</span>
+        <span class="example-tag tag-themed">themed</span>
+      </div>
+      <div class="example-body theme-demo" id="ex5-themed-wrap">
+        <img
+          id="ex5-img"
+          src="https://picsum.photos/seed/map5/720/380"
+          alt="Sample abstract"
+          class="demo-image"
+          style="display:block; border-radius:8px;"
+        >
+        <textarea id="ex5-ta"></textarea>
+        <div class="output-preview" style="margin-top:16px;">
+          <p class="output-label" style="color:#c4b5fd;">Live output</p>
+          <div class="output-code" id="ex5-code" style="background:#1e1b4b; border-color:#3730a3; color:#c4b5fd;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     Footer
+════════════════════════════════════════════════════════════════════════════ -->
+<footer class="site-footer">
+  <p>kImgMap v1.15.0 — Part of the <strong>K</strong> series &nbsp;·&nbsp;
+     <a href="docs.html">Documentation</a> &nbsp;·&nbsp;
+     <a href="https://github.com/KAStrack/kImgMap">GitHub</a> &nbsp;·&nbsp;
+     MIT License</p>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     Scripts
+════════════════════════════════════════════════════════════════════════════ -->
+<script src="kImgMap.min.js"></script>
+<script>
+/* ── Theme switcher ─────────────────────────────────────────────────────── */
+const html = document.documentElement;
+const themeBtns = document.querySelectorAll('.theme-btn');
+
+// (storage can be unavailable — private windows, blocked site data)
+const store = { get: k => { try { return localStorage.getItem(k); } catch { return null; } },
+                set: (k, v) => { try { localStorage.setItem(k, v); } catch { /* not remembered */ } } };
+
+function setTheme(t) {
+  html.className = `theme-${t}`;
+  themeBtns.forEach(b => {
+    b.classList.toggle('active', b.dataset.theme === t);
+    b.setAttribute('aria-pressed', String(b.dataset.theme === t));
+  });
+  store.set('kimgmap-site-theme', t);
+}
+
+themeBtns.forEach(btn => btn.addEventListener('click', () => setTheme(btn.dataset.theme)));
+setTheme(store.get('kimgmap-site-theme') || 'auto');
+
+/* ── Scrollable code can be scrolled from the keyboard ─────────────────── */
+document.querySelectorAll('pre, .output-code').forEach(el => { el.tabIndex = 0; });
+
+/* ── Auto-init example 1 & 2 ───────────────────────────────────────────── */
+// kImgMap.init() handles [data-kimgmap] containers automatically.
+// For ex1 & ex2 the textarea is found inside each [data-kimgmap] container.
+const autoInstances = kImgMap.init('[data-kimgmap]');
+
+// Ex1: sync output on save
+autoInstances[0]?.opts && Object.assign(autoInstances[0].opts, {
+  onSave: (html) => { document.getElementById('ex1-code').textContent = html; },
+  onUpdate: (html) => { document.getElementById('ex1-code').textContent = html; },
+});
+// Ex2: real-time
+autoInstances[1]?.opts && Object.assign(autoInstances[1].opts, {
+  onUpdate: (html) => { document.getElementById('ex2-code').textContent = html; },
+});
+
+/* ── Example 3 — custom attributes + pre-loaded areas ──────────────────── */
+const ex3 = new kImgMap(document.getElementById('ex3-img'), {
+  textarea:         document.getElementById('ex3-ta'),
+  mode:             'modal',
+  shapes:           ['rect', 'circle', 'poly'],
+  attributes:       ['href', 'alt', 'title', 'target'],
+  customAttributes: ['data-value', 'data-category'],
+  output:           'areas',
+  onSave: (html) => { document.getElementById('ex3-code').textContent = html; },
+  onUpdate: (html) => { document.getElementById('ex3-code').textContent = html; },
+});
+
+/* Populate code block with initial value */
+document.getElementById('ex3-code').textContent =
+  document.getElementById('ex3-ta').value;
+
+/* ── Example 4 — rect only + full map output ────────────────────────────── */
+const ex4 = new kImgMap(document.getElementById('ex4-img'), {
+  textarea:  document.getElementById('ex4-ta'),
+  mode:      'modal',
+  shapes:    ['rect'],
+  output:    'map',
+  mapName:   'gallery-map',
+  attributes: ['href', 'alt', 'title'],
+  onSave:   (html) => { document.getElementById('ex4-code').textContent = html; },
+  onUpdate: (html) => { document.getElementById('ex4-code').textContent = html; },
+});
+
+/* ── Example 5 — custom violet/indigo theme, inline ────────────────────── */
+const ex5 = new kImgMap(document.getElementById('ex5-img'), {
+  textarea: document.getElementById('ex5-ta'),
+  mode:     'inline',
+  shapes:   ['rect', 'circle', 'poly'],
+  // The palette is the .indigo-theme rule in <style>. It's a dark palette, so it
+  // builds on the built-in dark theme, which supplies readable danger/error
+  // colours and field borders for dark backgrounds.
+  className: 'indigo-theme',
+  theme:     'dark',
+  onUpdate: (html) => { document.getElementById('ex5-code').textContent = html; },
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{
+  "name": "kimgmap",
+  "version": "1.15.0",
+  "description": "Visual HTML image map editor — zero-dependency SVG-based <area> editor plugin",
+  "main": "kImgMap.js",
+  "module": "docs/kImgMap.mjs",
+  "style": "kImgMap.css",
+  "exports": {
+    ".": {
+      "import": "./docs/kImgMap.mjs",
+      "require": "./kImgMap.js",
+      "default": "./kImgMap.js"
+    },
+    "./kImgMap.css": "./kImgMap.css",
+    "./kImgMap.js": "./kImgMap.js",
+    "./docs/*": "./docs/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "kImgMap.js",
+    "kImgMap.css",
+    "docs/kImgMap.min.js",
+    "docs/kImgMap.mjs",
+    "docs/kImgMap.min.mjs",
+    "docs/kImgMap.min.css",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "node test/run.js",
+    "test:chromium": "node test/run.js --browser=chromium --build=src",
+    "test:min": "node test/run.js --build=min",
+    "check-build": "node scripts/build.js --check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KAStrack/kImgMap.git"
+  },
+  "homepage": "https://kastrack.github.io/kImgMap/",
+  "bugs": "https://github.com/KAStrack/kImgMap/issues",
+  "keywords": [
+    "imagemap",
+    "image-map",
+    "area",
+    "editor",
+    "svg"
+  ],
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@picocss/pico": "^2.1.1",
+    "axe-core": "^4.14.0",
+    "clean-css": "^5.3.3",
+    "playwright": "^1.64.0",
+    "terser": "^5.46.2"
+  }
+}
